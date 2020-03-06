@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <bits/stdc++.h>
+#include <string.h>
+#include <ctype.h>
 #include "Numero.h"
 
 using namespace std;
@@ -29,14 +31,14 @@ int menu_operaciones(){
 	cout<<"1. Suma"<<endl;
 	cout<<"2. Resta "<<endl;
 	cout<<"3. Multiplicacion"<<endl;
-	cout<<"Ingrese una opcion": ;
+	cout<<"Ingrese una opcion: ";
 	cin>>opcion;
 	cout<<endl;
 	return opcion;
 
 }//Fin del menu de las opciones
 
-int main(void){	
+int main(){	
 
 	int usuario=1;
 	
@@ -47,9 +49,12 @@ int main(void){
 			case 1:{
 
 				string numero;
+				string aux="";
+				int cont=0;
+
 				cout<<"Ingrese un numero: ";
 				cin>>numero;
- 	
+ 				//pop_back;
  				if (numero.find("b") != std::string::npos) {
  					n=new Numero("binario",numero);
     				lista.push_back(n);
@@ -61,8 +66,21 @@ int main(void){
     				n=new Numero("hexadecimal",numero);
     				lista.push_back(n);
 				}else{
-					n=new Numero("decimal",numero);
-    				lista.push_back(n);
+					
+					for (int i = 0; i < numero.size(); i++){
+						if (isalpha(numero[i])) {
+    						cont++;
+  						} else {
+    						aux+=numero[i];
+  						}//Fin del if del numero
+					}//Fin del for
+
+					if(cont>0){
+						cout<<"El decimal no puede contener letras"<<endl;
+					} else{
+						cout<<aux<<endl;
+						n=new Numero("decimal",aux);
+					}//Auxiliar para determinar que el decimal solo contenga numeros
 				}//Valida que tipo de numero es
 			
 			break;}//Fin del caso 1 del menu principal
@@ -71,7 +89,6 @@ int main(void){
 
 				cout<<"Los numeros Registrados hasta el momento"<<endl;
 				for (int i = 0; i < lista.size(); i++){
-
 					cout<<lista[i]->toString();
 					cout<<endl;
 				}//Fin del for de impresion
@@ -80,7 +97,7 @@ int main(void){
 			
 			case 3:{
 				
-				swtich(menu_operaciones){
+				switch(menu_operaciones()){
 					
 					case 1:{
 					break;}
@@ -95,7 +112,8 @@ int main(void){
 						cout<<"Opcion no valida"<<endl;
 					break;	
 				
-				}//Fin del swtich de las opciones del 
+				}//Fin del swtich de las opciones de los numeros
+
 			break;}//Fin del case tres del menu principal
 
 			default:{

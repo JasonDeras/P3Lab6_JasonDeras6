@@ -10,7 +10,7 @@ class Numero{
 	
 	protected:
 		
-		string tipo
+		string tipo;
 		string obnumero;
 
 	public:
