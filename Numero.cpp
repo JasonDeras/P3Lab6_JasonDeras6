@@ -1,5 +1,4 @@
 #include "Numero.h"
-
 #include <typeinfo>
 #include <iomanip>
 

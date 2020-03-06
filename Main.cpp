@@ -55,11 +55,14 @@ int main(void){
     				lista.push_back(n);
 
 				}else if (numero.find("0c") != std::string::npos) {
-    				lista.push_back(new Numero("Octal",numero));
+				n=new Numero("octaal",numero);
+    				lista.push_back(n);
     			}else if (numero.find("0x") != std::string::npos) {
-    				lista.push_back(new Numero("Hexadecimal",numero));
+    				n=new Numero("hexadecimal",numero);
+    				lista.push_back(n);
 				}else{
-					lista.push_back(new Numero("Decimal",numero));
+					n=new Numero("decimal",numero);
+    				lista.push_back(n);
 				}//Valida que tipo de numero es
 			
 			break;}//Fin del caso 1 del menu principal
@@ -76,6 +79,7 @@ int main(void){
 			break;}//Fin del case dos del menu principal
 			
 			case 3:{
+				
 				swtich(menu_operaciones){
 					
 					case 1:{
@@ -86,7 +90,7 @@ int main(void){
 
 					case 3:{
 					break;}
-					
+
 					default:
 						cout<<"Opcion no valida"<<endl;
 					break;	
