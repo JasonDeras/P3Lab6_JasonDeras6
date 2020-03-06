@@ -17,6 +17,9 @@ Numero::Numero(string tipo,string obnumero){
 string Numero::getTipo(){
 	return tipo;
 }
+string Numero::getNumero(){
+	return obnumero;
+}
 
 string Numero::toString(){
 	string salida=tipo+" "+obnumero;

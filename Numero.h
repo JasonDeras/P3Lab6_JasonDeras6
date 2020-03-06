@@ -18,6 +18,7 @@ class Numero{
 		Numero();
 		Numero(string,string);
 		string getTipo();
+		string getNumero();
 		string toString();
 		~Numero();
 };

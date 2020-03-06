@@ -14,7 +14,7 @@ int menu(){
 
 	int opcion;
 
-	cout<<"1. Ingrsar un numero"<<endl;
+	cout<<"1. Ingresar un numero"<<endl;
 	cout<<"2. Listar Numeros"<<endl;
 	cout<<"3. Operacion"<<endl;
 	cout<<"Ingrese una opcion: ";
@@ -34,9 +34,14 @@ int menu_operaciones(){
 	cout<<"Ingrese una opcion: ";
 	cin>>opcion;
 	cout<<endl;
+	
 	return opcion;
 
 }//Fin del menu de las opciones
+
+void multiplicacion(Numero * ,Numero * );
+void suma(Numero *, Numero *);
+void resta(Numero *,Numero *);
 
 int main(){	
 
@@ -66,7 +71,7 @@ int main(){
     				n=new Numero("hexadecimal",numero);
     				lista.push_back(n);
 				}else{
-					
+
 					for (int i = 0; i < numero.size(); i++){
 						if (isalpha(numero[i])) {
     						cont++;
@@ -78,8 +83,8 @@ int main(){
 					if(cont>0){
 						cout<<"El decimal no puede contener letras"<<endl;
 					} else{
-						cout<<aux<<endl;
 						n=new Numero("decimal",aux);
+						lista.push_back(n);
 					}//Auxiliar para determinar que el decimal solo contenga numeros
 				}//Valida que tipo de numero es
 			
@@ -100,6 +105,24 @@ int main(){
 				switch(menu_operaciones()){
 					
 					case 1:{
+						
+						int posicion1;
+						int posicion2;
+						Numero *numero1;
+						Numero *numero2;
+
+						cout<<"Ingrese la primera posicion: ";
+						cin>>posicion1;
+						cout<<"Ingrese la segunda posicion: ";
+						cin>>posicion2;
+
+						numero1=lista[posicion1];
+						numero2=lista[posicion2];
+
+						suma(numero1,numero2);
+						delete numero1;
+						delete numero2;
+
 					break;}
 
 					case 2:{
@@ -126,14 +149,37 @@ int main(){
 		cout<<endl;
 	}//Fin del while del usuario
  		
- 		//Liberacion de memoria
- 		for (int i = 0; i < lista.size(); i++){
- 			delete lista[i];
- 			lista[i]=NULL;
- 		}
- 		lista.clear();
+ 	//Liberacion de memoria
+ 	for (int i = 0; i < lista.size(); i++){
+ 		delete lista[i];
+ 		lista[i]=NULL;
+ 	}
+ 	lista.clear();
 
- 		delete n;
+ 	delete n;
+
 	return 0;
 
 }//Fin del main
+
+void suma(Numero * numero1, Numero *numero2){
+
+	if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="decimal"){
+		
+		int num1 = stoi(numero1->getNumero());
+		int num2 = stoi(numero2->getNumero()); 
+		int suma=num1+num2;
+		cout<<"Resultado de la suma de: "<<suma<<endl<<endl;
+		n=new Numero("decimal",suma);
+		lista.push_back(n);
+		delete n;
+	
+	}/*else if(){
+
+	}else if(){
+
+	}else if(){
+
+	}*/
+
+}//Fin del metodo de la suma 
