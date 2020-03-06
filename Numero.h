@@ -4,18 +4,21 @@
 #ifndef NUMERO_H
 #define NUMERO_H
 
+using namespace std;
+
 class Numero{
 	
-	private: 
+	protected:
+		
+		string tipo
+		string obnumero;
 
-		string obtnumero;
-
-	public: 
-
+	public:
+		
 		Numero();
-		Numero(string);
-		virtual string toString()=0;
-
+		Numero(string,string);
+		string getTipo();
+		string toString();
 		~Numero();
 };
 
