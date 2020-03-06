@@ -1,18 +1,17 @@
 #include <iostream>
 #include <string>
 #include "Numero.h"
-
-#ifndef OCTAL_H
-#define OCTAL_H
+#ifndef BINARIO_H
+#define BINARIO_H
 
 using namespace std;
 
-class Octal:public Numero{
+class Binario:public Numero{
 	
 	public:
 		
-		Octal();
-		~Octal();
+		Binario();
+		~Binario();
 };
 
 #endif

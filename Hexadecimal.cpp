@@ -1,7 +1,7 @@
 #include "Numero.h"
 #include "Hexadecimal.h"
 #include <typeinfo>
-#include <iomanip>
+#include <string>
 
 using namespace std;
 

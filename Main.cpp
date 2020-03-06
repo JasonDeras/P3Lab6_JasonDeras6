@@ -34,7 +34,7 @@ int menu_operaciones(){
 	cout<<"Ingrese una opcion: ";
 	cin>>opcion;
 	cout<<endl;
-	
+
 	return opcion;
 
 }//Fin del menu de las opciones
@@ -61,15 +61,20 @@ int main(){
 				cin>>numero;
  				//pop_back;
  				if (numero.find("b") != std::string::npos) {
+ 					
  					n=new Numero("binario",numero);
     				lista.push_back(n);
 
 				}else if (numero.find("0c") != std::string::npos) {
-				n=new Numero("octaal",numero);
+					
+					n=new Numero("octaal",numero);
     				lista.push_back(n);
+    			
     			}else if (numero.find("0x") != std::string::npos) {
+    				
     				n=new Numero("hexadecimal",numero);
     				lista.push_back(n);
+				
 				}else{
 
 					for (int i = 0; i < numero.size(); i++){
@@ -94,7 +99,7 @@ int main(){
 
 				cout<<"Los numeros Registrados hasta el momento"<<endl;
 				for (int i = 0; i < lista.size(); i++){
-					cout<<lista[i]->toString();
+					cout<<"Posicion: "<<i<<lista[i]->toString();
 					cout<<endl;
 				}//Fin del for de impresion
 
@@ -126,9 +131,62 @@ int main(){
 					break;}
 
 					case 2:{
+
+						int posicion1;
+						int posicion2;
+						Numero *numero1;
+						Numero *numero2;
+
+						cout<<"Ingrese la primera posicion: ";
+						cin>>posicion1;
+						cout<<"Ingrese la segunda posicion: ";
+						cin>>posicion2;
+
+						numero1=lista[posicion1];
+						numero2=lista[posicion2];
+
+						resta(numero1,numero2);
+						delete numero1;
+						delete numero2;
+
 					break;}
 
+						int posicion1;
+						int posicion2;
+						Numero *numero1;
+						Numero *numero2;
+
+						cout<<"Ingrese la primera posicion: ";
+						cin>>posicion1;
+						cout<<"Ingrese la segunda posicion: ";
+						cin>>posicion2;
+
+						numero1=lista[posicion1];
+						numero2=lista[posicion2];
+
+						multiplicacion(numero1,numero2);
+						delete numero1;
+						delete numero2;
+
 					case 3:{
+
+						int posicion1;
+						int posicion2;
+						Numero *numero1;
+						Numero *numero2;
+
+						cout<<"Ingrese la primera posicion: ";
+						cin>>posicion1;
+						cout<<"Ingrese la segunda posicion: ";
+						cin>>posicion2;
+
+						numero1=lista[posicion1];
+						numero2=lista[posicion2];
+
+						multiplicacion(numero1,numero2);
+						delete numero1;
+						delete numero2;
+
 					break;}
 
 					default:
@@ -170,7 +228,7 @@ void suma(Numero * numero1, Numero *numero2){
 		int num2 = stoi(numero2->getNumero()); 
 		int suma=num1+num2;
 		cout<<"Resultado de la suma de: "<<suma<<endl<<endl;
-		n=new Numero("decimal",suma);
+		n=new Numero("decimal",""+suma);
 		lista.push_back(n);
 		delete n;
 	
@@ -183,3 +241,47 @@ void suma(Numero * numero1, Numero *numero2){
 	}*/
 
 }//Fin del metodo de la suma 
+
+void resta(Numero * numero1, Numero *numero2){
+
+	if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="decimal"){
+		
+		int num1 = stoi(numero1->getNumero());
+		int num2 = stoi(numero2->getNumero()); 
+		int rest=num1-num2;
+		cout<<"Resultado de la resta de: "<<rest<<endl<<endl;
+		n=new Numero("decimal",""+rest);
+		lista.push_back(n);
+		delete n;
+	
+	}else if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="octal"){
+
+	}else if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="hexadecimal"){
+
+	}else if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="binario"){
+
+	}
+
+}//Fin del metodo de la resta 
+
+void multiplicacion(Numero * numero1, Numero *numero2){
+
+	if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="decimal"){
+		
+		int num1 = stoi(numero1->getNumero());
+		int num2 = stoi(numero2->getNumero()); 
+		int mult=num1*num2;
+		cout<<"Resultado de la multiplicacion de: "<<mult<<endl<<endl;
+		n=new Numero("decimal",""+mult);
+		lista.push_back(n);
+		delete n;
+	
+	}/*else if(){
+
+	}else if(){
+
+	}else if(){
+
+	}*/
+
+}//Fin del metodo de la multiplicacion 

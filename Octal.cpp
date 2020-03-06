@@ -1,7 +1,7 @@
 #include "Numero.h"
 #include "Octal.h"
 #include <typeinfo>
-#include <iomanip>
+#include <string>
 
 using namespace std;
 
