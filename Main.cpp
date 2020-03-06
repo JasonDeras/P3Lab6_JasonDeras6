@@ -52,31 +52,62 @@ int main(){
 		switch(menu()){
 
 			case 1:{
-
+				int resp=-1;
 				string numero;
 				string aux="";
 				int cont=0;
+				int car=1;
 
 				cout<<"Ingrese un numero: ";
 				cin>>numero;
- 				//pop_back;
- 				if (numero.find("b") != std::string::npos) {
- 					
- 					n=new Numero("binario",numero);
-    				lista.push_back(n);
 
-				}else if (numero.find("0c") != std::string::npos) {
-					
-					n=new Numero("octaal",numero);
-    				lista.push_back(n);
-    			
-    			}else if (numero.find("0x") != std::string::npos) {
-    				
-    				n=new Numero("hexadecimal",numero);
-    				lista.push_back(n);
-				
+ 				for (int i = 0; i < numero.size(); ++i){
+					if(numero[i]!='0' && numero[i]!='1' && numero[i] !='b'){
+						resp=2;
+					}//Fin del if 
+				}//Fin del for 
+
+				if(resp==-1){
+					n=new Numero("binario",numero);
+					lista.push_back(n);
+					delete n;
 				}else{
+					cout<<"El numero no es binario"<<endl;
+					car=2;
+				}//Fin del if de los binarios
 
+				for (int i = 0; i < numero.size(); ++i){
+					if(numero[i]!='0' && numero[i]!='1' && numero[i] !='2' && numero[i]!='3' && numero[i]!='4' && numero[i] !='5' && numero[i]!='6' && numero[i]!='7' && numero[i] !='8' && numero[i]!='9' && numero[i]!='A' && numero[i] !='B' && numero[i]!='C' && numero[i]!='D' && numero[i] !='E' && numero[i]!='F'){
+						resp=2;
+					}//Fin del if
+				}//Fin del for
+		
+				if(resp==-1){
+					n=new Numero("hexadecimal",numero);
+					lista.push_back(n);
+					delete n;
+				}else{
+					cout<<"El numero no es hexadecimal"<<endl;
+					car=2;
+				}//Fin del if de los hexadecimales
+
+
+
+				for (int i = 0; i < numero.size(); ++i){
+					if(numero[i]!='0' && numero[i]!='1' && numero[i] !='2' && numero[i]!='3' && numero[i]!='4' && numero[i] !='5' && numero[i]!='6' && numero[i]!='7'){
+						resp=2;
+					}//Fin del if 
+				}//Fin del for
+				
+				if(resp==-1){
+					n=new Numero("octal",numero);
+					lista.push_back(n);
+				}else{
+					cout<<"El numero no es octal"<<endl;
+					car=2;
+				}//Fin del if del octal
+				
+				if(car==1){		
 					for (int i = 0; i < numero.size(); i++){
 						if (isalpha(numero[i])) {
     						cont++;
@@ -91,8 +122,9 @@ int main(){
 						n=new Numero("decimal",aux);
 						lista.push_back(n);
 					}//Auxiliar para determinar que el decimal solo contenga numeros
-				}//Valida que tipo de numero es
 			
+				}//Fin del if de decimales
+				
 			break;}//Fin del caso 1 del menu principal
 			
 			case 2:{
