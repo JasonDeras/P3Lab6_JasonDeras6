@@ -6,13 +6,6 @@
 using namespace std;
 
 class Decimal:public Numero{
-	
-	private:
-		
-		int longitud;
-		int anchura;
-		
-	protected:
 		
 	public:
 		
