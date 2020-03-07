@@ -13,9 +13,6 @@ class Binario:public Numero{
   	public:
     	Binario();
     	Binario( string numero );
-  //  int operator-(numero num2);
-//    int operator+(numero num2);
-  //  int operator*(numero num2);
     	string toString();
     	void convertir( string numero );
 };

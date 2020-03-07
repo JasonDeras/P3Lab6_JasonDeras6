@@ -8,16 +8,6 @@ Binario::Binario( string numero ){
   convertir( numero );
 }
 
-/*int numero::operator-(numero num2){
-  return (*this).entero - num2.entero;
-}
-int numero::operator+(numero num2){
-  return (*this).entero + num2.entero;
-}
-int numero::operator*(numero num2){
-  return (*this).entero * num2.entero;
-}*/
-
 void Binario::convertir(string numero){
   string binario = "";
   tipo = 'b';

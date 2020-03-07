@@ -7,16 +7,6 @@ Octal::Octal( string numero ){
   this->numero = numero;
 }
 
-/*int numero::operator-(numero num2){
-  return (*this).entero - num2.entero;
-}
-int numero::operator+(numero num2){
-  return (*this).entero + num2.entero;
-}
-int numero::operator*(numero num2){
-  return (*this).entero * num2.entero;
-}*/
-
 void Octal::convertir( string numero ){
   string octal = "";
   tipo = 'o';

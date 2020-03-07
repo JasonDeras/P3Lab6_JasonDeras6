@@ -13,9 +13,6 @@ class Hexadecimal:public Numero{
   	public:
     	Hexadecimal();
     	Hexadecimal( string numero );
-    //int operator-(numero num2);
-    //int operator+(numero num2);
-    //int operator*(numero num2);
     	string toString();
     	void convertir( string num);
 };

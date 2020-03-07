@@ -17,6 +17,5 @@ class Numero{
     virtual int operator-(Numero num2);
     virtual int operator+(Numero num2);
     virtual int operator*(Numero num2);
-    //void convertido( string num );
 };
 #endif
