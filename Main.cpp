@@ -169,8 +169,6 @@ void Validacion(string numero){
 
 		if(resp==1){
 			lista_numeros.push_back(numero);
-		}else{
-			cout<<"El numero no es decimal"<<endl;
 		}
 	}
 }//Fin del metodo para validar el numero
