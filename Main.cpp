@@ -30,10 +30,10 @@ void Multiplicacion();
 string Formato( int resultado );
 
 //Binarios
-int biario( int numero );
+int binario( int numero );
 
 //Octales
-int bctal( int numero );
+int octales( int numero );
 
 //Hexadecimales
 string hexadecimal( int numero );
@@ -198,20 +198,20 @@ void Operareracion(){
   char verificar = tipo( lista_numeros[num1] );
   switch( verificar ){
     case 'b':{
-        Binario baux( lista_numeros[num1] );
-        numero1 = baux;
+        Binario bi( lista_numeros[num1] );
+        numero1 = bi;
         numero1.tipo = 'b';
     break;}
     
     case 'o':{
-        Octal oaux( lista_numeros[num1] );
-        numero1 = oaux;
+        Octal oct( lista_numeros[num1] );
+        numero1 = oct;
         numero1.tipo = 'o';
     break;}
 
     case 'h':{
-    	Hexadecimal haux( lista_numeros[num1] );
-        numero1 = haux;
+    	Hexadecimal hec( lista_numeros[num1] );
+        numero1 = hec;
         numero1.tipo = 'h';
     break;}
     
@@ -223,18 +223,18 @@ void Operareracion(){
   char verificar2 = tipo( lista_numeros[num2] );
   switch( verificar2 ){
     case 'b':{
-              Binario baux( lista_numeros[num2] );
-              numero2 = baux;
+              Binario bi( lista_numeros[num2] );
+              numero2 = bi;
               break;
     }
     case 'o':{
-              Octal oaux( lista_numeros[num2] );
-              numero2 = oaux;
+              Octal oct( lista_numeros[num2] );
+              numero2 = oct;
               break;
     }
     case 'h':{
-            Hexadecimal haux( lista_numeros[num2] );
-            numero2 = haux;
+            Hexadecimal hec( lista_numeros[num2] );
+            numero2 = hec;
             break;
     }case 'e':{
             numero2.entero = stoi(lista_numeros[num2], nullptr, 10);
@@ -265,24 +265,24 @@ void Operareracion(){
 
 void Suma(){
   int s = numero1 + numero2;
-  cout << "Resultado: " << formato(s) << endl;
+  cout << "Resultado: " << Formato(s) << endl;
 }
 
 void Resta(){
   int r = numero1 - numero2;
-  cout << "Resultado: " << formato(r) << endl;
+  cout << "Resultado: " << Formato(r) << endl;
 }
 
 void Multiplicacion(){
   int m =  numero1 * numero2;
-  cout << "Resultado: " << formato(m) << endl;
+  cout << "Resultado: " << Formato(m) << endl;
 }
 
-string formato( int resultado ){
+string Formato( int resultado ){
   string formato = to_string(resultado);
   switch( numero1.tipo ){
     case 'b':{
-                int bin = binary( resultado );
+                int bin = binario( resultado );
                 formato = to_string(bin);
                 formato += "b";
             }
@@ -297,7 +297,8 @@ string formato( int resultado ){
             }
             break;
     case 'h':{
-              formato = hexa( resultado );
+              formato = "0x";
+              formato += hexadecimal( resultado );
               break;
             }
 
@@ -305,7 +306,7 @@ string formato( int resultado ){
   return formato;
 }
 
-int binary(int numero){
+int binario(int numero){
   int exponente, digito;
   double binario;
   exponente = 0;
@@ -331,7 +332,7 @@ int octales( int numero ){
     return octal;
 }
 
-string hexa( int numero ){
+string hexadecimal( int numero ){
   string acum= "";
   char letras[100];
   char letra;
