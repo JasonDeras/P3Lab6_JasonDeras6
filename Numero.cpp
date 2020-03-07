@@ -1,31 +1,43 @@
 #include "Numero.h"
-#include <typeinfo>
-#include <iomanip>
 
 using namespace std;
 
 Numero::Numero(){
-	tipo="";
-	obnumero="";
 }
 
-Numero::Numero(string tipo,string obnumero){
-	this->tipo=tipo;
-	this->obnumero=obnumero;
+Numero::Numero( string numero ){
+  original = numero;
+  //convertido( num );
 }
 
-string Numero::getTipo(){
-	return tipo;
-}
-string Numero::getNumero(){
-	return obnumero;
+/*void numero::convertido( string num ){
+  if( num[num.size()-1] == 'b' ){
+    string bin = "";
+    tipo = 'b';
+    for (int i = 0; i < num.size()-1; i++) bin+=num[i];
+    entero = stoi( bin , nullptr, 2);
+  }else if( num[0] == '0' && num[1] == 'c' ){
+    string oct = "";
+    tipo = 'o';
+    for (int i = 2; i < num.size(); i++) oct+=num[i];
+    entero = stoi(oct, nullptr, 8);
+  }else if( num[0] == '0' && num[1] == 'x' ){
+    entero = stoi(num, nullptr, 16);
+    tipo = 'h';
+  }else{
+    entero = stoi(num, nullptr, 10);
+    tipo = 'e';
+  }
+}*/
+
+int Numero::operator-(Numero num2){
+  return (*this).entero-num2.entero;
 }
 
-string Numero::toString(){
-	string salida=tipo+" "+obnumero;
-	return salida;
-}//Fin del metodo para imprimir 
+int  Numero::operator+(Numero num2){
+  return (*this).entero + num2.entero;
+}
 
-Numero::~Numero(){
-	
+int Numero::operator*(Numero num2){
+  return (*this).entero * num2.entero;
 }

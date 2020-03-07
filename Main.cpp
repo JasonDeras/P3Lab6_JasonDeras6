@@ -1,319 +1,358 @@
+
 #include <iostream>
-#include <string>
-#include <vector>
-#include <bits/stdc++.h>
-#include <string.h>
-#include <ctype.h>
 #include "Numero.h"
-
+#include "Hexadecimal.h"
+#include "Octal.h"
+#include "Binario.h"
+#include <vector>
+#include <cmath>
+#include <iomanip>
+#include <string>
 using namespace std;
-vector<Numero *>lista;
-Numero *n;
 
-int menu(){
-
-	int opcion;
-
-	cout<<"1. Ingresar un numero"<<endl;
-	cout<<"2. Listar Numeros"<<endl;
-	cout<<"3. Operacion"<<endl;
-	cout<<"Ingrese una opcion: ";
-	cin>>opcion;
-	cout<<endl;
-	return opcion;
-
-}//Fin del menu
-
-int menu_operaciones(){
-	
-	int opcion;
-
-	cout<<"1. Suma"<<endl;
-	cout<<"2. Resta "<<endl;
-	cout<<"3. Multiplicacion"<<endl;
-	cout<<"Ingrese una opcion: ";
-	cin>>opcion;
-	cout<<endl;
-
-	return opcion;
-
-}//Fin del menu de las opciones
-
-void multiplicacion(Numero * ,Numero * );
-void suma(Numero *, Numero *);
-void resta(Numero *,Numero *);
-
-int main(){	
-
-	int usuario=1;
-	
-	while(usuario==1){
-		
-		switch(menu()){
-
-			case 1:{
-				int resp=-1;
-				string numero;
-				string aux="";
-				int cont=0;
-				int car=1;
-
-				cout<<"Ingrese un numero: ";
-				cin>>numero;
-
- 				for (int i = 0; i < numero.size(); ++i){
-					if(numero[i]!='0' && numero[i]!='1' && numero[i] !='b'){
-						resp=2;
-					}//Fin del if 
-				}//Fin del for 
-
-				if(resp==-1){
-					n=new Numero("binario",numero);
-					lista.push_back(n);
-					delete n;
-				}else{
-					cout<<"El numero no es binario"<<endl;
-					car=2;
-				}//Fin del if de los binarios
-
-				for (int i = 0; i < numero.size(); ++i){
-					if(numero[i]!='0' && numero[i]!='1' && numero[i] !='2' && numero[i]!='3' && numero[i]!='4' && numero[i] !='5' && numero[i]!='6' && numero[i]!='7' && numero[i] !='8' && numero[i]!='9' && numero[i]!='A' && numero[i] !='B' && numero[i]!='C' && numero[i]!='D' && numero[i] !='E' && numero[i]!='F'){
-						resp=2;
-					}//Fin del if
-				}//Fin del for
-		
-				if(resp==-1){
-					n=new Numero("hexadecimal",numero);
-					lista.push_back(n);
-					delete n;
-				}else{
-					cout<<"El numero no es hexadecimal"<<endl;
-					car=2;
-				}//Fin del if de los hexadecimales
+//Vector de numeros
+vector< string > lista_numeros;
 
 
+//Validacion de los nmeros
+void Validacion(string);
 
-				for (int i = 0; i < numero.size(); ++i){
-					if(numero[i]!='0' && numero[i]!='1' && numero[i] !='2' && numero[i]!='3' && numero[i]!='4' && numero[i] !='5' && numero[i]!='6' && numero[i]!='7'){
-						resp=2;
-					}//Fin del if 
-				}//Fin del for
-				
-				if(resp==-1){
-					n=new Numero("octal",numero);
-					lista.push_back(n);
-				}else{
-					cout<<"El numero no es octal"<<endl;
-					car=2;
-				}//Fin del if del octal
-				
-				if(car==1){		
-					for (int i = 0; i < numero.size(); i++){
-						if (isalpha(numero[i])) {
-    						cont++;
-  						} else {
-    						aux+=numero[i];
-  						}//Fin del if del numero
-					}//Fin del for
+//Listar
+void Listar();
 
-					if(cont>0){
-						cout<<"El decimal no puede contener letras"<<endl;
-					} else{
-						n=new Numero("decimal",aux);
-						lista.push_back(n);
-					}//Auxiliar para determinar que el decimal solo contenga numeros
-			
-				}//Fin del if de decimales
-				
-			break;}//Fin del caso 1 del menu principal
-			
-			case 2:{
+//Operaciones
+void Operareracion();
+void Suma();
+void Resta();
+void Multiplicacion();
 
-				cout<<"Los numeros Registrados hasta el momento"<<endl;
-				for (int i = 0; i < lista.size(); i++){
-					cout<<"Posicion: "<<i<<lista[i]->toString();
-					cout<<endl;
-				}//Fin del for de impresion
+//Impresion
+string Formato( int resultado );
 
-			break;}//Fin del case dos del menu principal
-			
-			case 3:{
-				
-				switch(menu_operaciones()){
-					
-					case 1:{
-						
-						int posicion1;
-						int posicion2;
-						Numero *numero1;
-						Numero *numero2;
+//Binarios
+int Biario( int numero );
 
-						cout<<"Ingrese la primera posicion: ";
-						cin>>posicion1;
-						cout<<"Ingrese la segunda posicion: ";
-						cin>>posicion2;
+//Octales
+int Octal( int numero );
 
-						numero1=lista[posicion1];
-						numero2=lista[posicion2];
+//Hexadecimales
+string Hexadecimal( int numero );
 
-						suma(numero1,numero2);
-						delete numero1;
-						delete numero2;
+//Numeros
+Numero numero1("0"), numero2("0");
 
-					break;}
 
-					case 2:{
+//Tipo de numero
+char tipo( string numero );
 
-						int posicion1;
-						int posicion2;
-						Numero *numero1;
-						Numero *numero2;
 
-						cout<<"Ingrese la primera posicion: ";
-						cin>>posicion1;
-						cout<<"Ingrese la segunda posicion: ";
-						cin>>posicion2;
+int main(){
+  
+  int opcion;
+  int usuario=1;
+  numero1.entero = 0;
+  numero1.tipo = ' ';
+  
+  while(usuario==1){
 
-						numero1=lista[posicion1];
-						numero2=lista[posicion2];
+  	cout<<"1, Ingresar un numero"<<endl;
+  	cout<<"2. Listar numeros"<<endl;
+  	cout<<"3. Operacion"<<endl;
+  	cout<<"Ingrese una opcion: ";
+  	cin>>opcion;
 
-						resta(numero1,numero2);
-						delete numero1;
-						delete numero2;
+  	cout<<endl<<endl;
 
-					break;}
+  	switch(opcion){
 
-						int posicion1;
-						int posicion2;
-						Numero *numero1;
-						Numero *numero2;
+  		case 1:{
+  			
+  			string numero;
+  			cout << "Ingrese el numero: ";
+ 			cin >> numero;
+ 			Validacion(numero);
 
-						cout<<"Ingrese la primera posicion: ";
-						cin>>posicion1;
-						cout<<"Ingrese la segunda posicion: ";
-						cin>>posicion2;
+  		break;}
 
-						numero1=lista[posicion1];
-						numero2=lista[posicion2];
+  		case 2:{
+  			listar();
+  		break;}
 
-						multiplicacion(numero1,numero2);
-						delete numero1;
-						delete numero2;
+  		case 3:{
+  			oprear();
+  		break;}
+  		
+  		default:{
+  			cout<<"Opcion no valida"<<endl<<endl;
+  		break;}
+  	
+  	}//Fin del caso de las opciones
 
-					case 3:{
+  	cout<<"Desea volver al menu[1.Si,2.-No]: ";
+  	cin>>usuario;
+  	cout<<endl;
 
-						int posicion1;
-						int posicion2;
-						Numero *numero1;
-						Numero *numero2;
-
-						cout<<"Ingrese la primera posicion: ";
-						cin>>posicion1;
-						cout<<"Ingrese la segunda posicion: ";
-						cin>>posicion2;
-
-						numero1=lista[posicion1];
-						numero2=lista[posicion2];
-
-						multiplicacion(numero1,numero2);
-						delete numero1;
-						delete numero2;
-
-					break;}
-
-					default:
-						cout<<"Opcion no valida"<<endl;
-					break;	
-				
-				}//Fin del swtich de las opciones de los numeros
-
-			break;}//Fin del case tres del menu principal
-
-			default:{
-				cout<<"Opcion no valida"<<endl; 
-			break;}
-		
-		}//Fin del swicth del menu principal
-		cout<<"Volver al menu[1.-Si/2.-No]: ";
-		cin>>usuario;
-		cout<<endl;
-	}//Fin del while del usuario
- 		
- 	//Liberacion de memoria
- 	for (int i = 0; i < lista.size(); i++){
- 		delete lista[i];
- 		lista[i]=NULL;
- 	}
- 	lista.clear();
-
- 	delete n;
-
-	return 0;
+  }//Fin del while del usuario
 
 }//Fin del main
 
-void suma(Numero * numero1, Numero *numero2){
-
-	if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="decimal"){
-		
-		int num1 = stoi(numero1->getNumero());
-		int num2 = stoi(numero2->getNumero()); 
-		int suma=num1+num2;
-		cout<<"Resultado de la suma de: "<<suma<<endl<<endl;
-		n=new Numero("decimal",""+suma);
-		lista.push_back(n);
-		delete n;
+void Validacion(string numero){
 	
-	}/*else if(){
+	int resp=1;
+	size_t binario = numero.find("b");
+	size_t hexadecimal = numero.find("0x");
+	size_t foundoc = num.find("0c");
 
-	}else if(){
-
-	}else if(){
-
-	}*/
-
-}//Fin del metodo de la suma 
-
-void resta(Numero * numero1, Numero *numero2){
-
-	if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="decimal"){
-		
-		int num1 = stoi(numero1->getNumero());
-		int num2 = stoi(numero2->getNumero()); 
-		int rest=num1-num2;
-		cout<<"Resultado de la resta de: "<<rest<<endl<<endl;
-		n=new Numero("decimal",""+rest);
-		lista.push_back(n);
-		delete n;
+	if (binario==numero.size()-1){
+		for (int i = 0; i < numero.size(); i++){
+			if(numero[i]!='0' && numero[i]!='1' && numero[i] !='b'){
+				resp=2;
+			}//Fin del if 
+		}//Fin del for
+		if(resp==1){
+			lista_numeros.push_back(numero);
+		}
+		else{
+			cout<<"El numero no es binario"<<endl;
+		}
+	}//Fin del if de los numeros binarios
 	
-	}else if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="octal"){
+	if (hexadecimal==0){
+		for (int i = 0; i < numero.size(); i++){
+			if(numero[i]!='0' && numero[i]!='1' 
+				&& numero[i] !='2' && numero[i]!='3' 
+				&& numero[i]!='4' && numero[i] !='5'
+				&& numero[i]!='6' && numero[i]!='7' 
+				&& numero[i] !='8' && numero[i]!='9' 
+				&& numero[i]!='A' && numero[i] !='B' 
+				&& numero[i]!='C' && numero[i]!='D' 
+				&& numero[i] !='E' && numero[i]!='F'){
 
-	}else if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="hexadecimal"){
+				resp=2;
+			}//Fin del if
+		
+		}//Fin del for
+		if(resp==1){
+			lista_numeros.push_back(numero);
+		}
+		else{
+			cout<<"El numero no es hexadecimal"<<endl;
+		}
+	}//Fin del if de los numeros binarios
 
-	}else if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="binario"){
+	if (octal==0){
+		for (int i = 0; i < numero.size(); i++){
+			if(numero[i]!='0' && numero[i]!='1' 
+				&& numero[i] !='2' && numero[i]!='3' 
+				&& numero[i]!='4' && numero[i] !='5' 
+				&& numero[i]!='6' && numero[i]!='7'){
+				resp=2;
+			}//Fin del if
+		}//Fin del for 
+		if(resp==1){
+			lista_numeros.push_back(numero);
+		}//Fin del if de los octales
+		else{
+			cout<<"El numero no es octal"<<endl;
+		}
+	}else{
+		for (int i = 0; i < numero.size(); i++){
+			if(numero[i]!='0' && numero[i]!='1' 
+				&& numero[i] !='2' && numero[i]!='3' 
+				&& numero[i]!='4' && numero[i] !='5' 
+				&& numero[i]!='6' && numero[i]!='7' 
+				&& numero[i]!='8' && numero[i]!='9'){
+				resp=2;
+			
+			}//Fin del if
+		}//Fin del for
 
+		if(resp==1){
+			lista_numeros.push_back(numero);
+		}else{
+			cout<<"El numero no es decimal"<<endl;
+		}
 	}
+}//Fin del metodo para validar el numero
 
-}//Fin del metodo de la resta 
+void Listar(){
+	if (!lista_numeros.empty()){
+		for (int i = 0; i < lista_numeros.size(); i++){			
+			cout<<"Posicion "<<i<<": "<<lista_numeros[i]<<endl;
+		}
+	}else{
+		cout<<"El vector esta vacio"<<endl;
+	}//Fin del if que valida que el vector no este vacio
+}//Fin del metodo para listar
 
-void multiplicacion(Numero * numero1, Numero *numero2){
+void operar(){
+  listar();
+  int num1, num2, opcion;
+  do{
+    cout << "Ingrese el primer numero: ";
+    cin >> num1;
+    cout << "Ingrese el segundo numero: ";
+    cin >> num2;
+  }while( num1 < 0 || num1 > numeros.size() || num2 < 0 || num2 > numeros.size() );
+  char verificar = tipo( numeros[num1] );
+  switch( verificar ){
+    case 'b':{
+              Binario baux( numeros[num1] );
+              n1 = baux;
+              n1.tipo = 'b';
+              cout << "Tipo: " << n1.tipo << " Valo: " << n1.entero << endl;
+              break;
+    }
+    case 'o':{
+              Octal oaux( numeros[num1] );
+              n1 = oaux;
+              n1.tipo = 'o';
+              cout << "Tipo: " << n1.tipo << " Valo: " << n1.entero << endl;
+              break;
+    }
+    case 'h':{
+            Hexadecimal haux( numeros[num1] );
+            n1 = haux;
+            n1.tipo = 'h';
+            cout << "Tipo: " << n1.tipo << " Valo: " << n1.entero << endl;
+            break;
+    }
+    case 'e':{
+           n1.entero = stoi(numeros[num1], nullptr, 10);
+            break;
+    }
+  }
+  char verificar2 = tipo( numeros[num2] );
+  switch( verificar2 ){
+    case 'b':{
+              Binario baux( numeros[num2] );
+              n2 = baux;
+              break;
+    }
+    case 'o':{
+              Octal oaux( numeros[num2] );
+              n2 = oaux;
+              break;
+    }
+    case 'h':{
+            Hexadecimal haux( numeros[num2] );
+            n2 = haux;
+            break;
+    }case 'e':{
+            n2.entero = stoi(numeros[num2], nullptr, 10);
+            break;
+    }
 
-	if(numero1->getTipo()=="decimal"&&numero2->getTipo()=="decimal"){
-		
-		int num1 = stoi(numero1->getNumero());
-		int num2 = stoi(numero2->getNumero()); 
-		int mult=num1*num2;
-		cout<<"Resultado de la multiplicacion de: "<<mult<<endl<<endl;
-		n=new Numero("decimal",""+mult);
-		lista.push_back(n);
-		delete n;
-	
-	}/*else if(){
+  }
+  cout << "1- Sumar" << endl << "2- Restar" << endl << "3- Multiplicar" << endl << "Ingrese la opcion: ";
+  cin >> opcion;
+  if( opcion == 1 ) suma();
+  if( opcion == 2 ) resta();
+  if( opcion == 3 ) multiplicacion();
+}
 
-	}else if(){
+void suma(){
+  int s = n1 + n2;
+  cout << "Resultado: " << formato(s) << endl;
+}
 
-	}else if(){
+void resta(){
+  int r = n1 - n2;
+  cout << "Resultado: " << formato(r) << endl;
+}
 
-	}*/
+void multiplicacion(){
+  int m =  n1 * n2;
+  cout << "Resultado: " << formato(m) << endl;
+}
 
-}//Fin del metodo de la multiplicacion 
+string formato( int resultado ){
+  string formato = to_string(resultado);
+  switch( n1.tipo ){
+    case 'b':{
+                int bin = binary( resultado );
+                formato = to_string(bin);
+                formato += "b";
+            }
+            break;
+    case 'e':{
+                formato = to_string( stoi( formato , nullptr, 10) );
+            }
+            break;
+    case 'o':{
+                formato = "0c";
+                formato += to_string( octales( resultado ));
+            }
+            break;
+    case 'h':{
+              formato = hexa( resultado );
+              break;
+            }
+
+  }
+  return formato;
+}
+
+int binary(int numero){
+  int exponente, digito;
+  double binario;
+  exponente = 0;
+  binario = 0;
+  while( numero / 2 != 0 ){
+          digito = numero % 2;
+          binario = binario + digito * pow(10.0,exponente);
+          exponente++;
+          numero=numero/2;
+  }
+  binario = binario + numero * pow(10.0,exponente );
+   return binario;
+}
+
+int octales( int numero ){
+    int aux, aux2 = 1, octal = 0;
+    while( numero != 0 ) {
+        aux = numero % 8;
+        numero /= 8;
+        octal += aux * aux2;
+        aux2 *= 10;
+    }
+    return octal;
+}
+
+string hexa( int numero ){
+  string acum= "";
+  char letras[100];
+  char letra;
+  int i = 0;
+  while( numero !=0){
+      int temp  = 0;
+      temp = numero % 16;
+      if( temp < 10 ){
+          letra = temp + 48;
+          acum += letra;
+          i++;
+      }
+      else{
+          letra = temp + 55;
+          acum += letra;
+          i++;
+      }
+      numero /= 16;
+  }
+  string aux = "";
+  for ( int j = i-1; j >= 0 ;j-- )
+      aux += acum[j];
+  return aux;
+}
+
+char tipo( string num ){
+  if( num[num.size()-1] == 'b' ){
+    return  'b';
+  }else if( num[0] == '0' && num[1] == 'c' ){
+    return  'o';
+  }else if( num[0] == '0' && num[1] == 'x' ){
+    return  'h';
+  }else{
+    return 'e';
+  }
+}

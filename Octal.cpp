@@ -1,12 +1,25 @@
 #include "Numero.h"
 #include "Octal.h"
-#include <typeinfo>
-#include <string>
 
 using namespace std;
 
-Octal::Octal():Numero(){
+Octal::Octal( string numero ){
+  this->numero = numero;
 }
 
-Octal::~Octal(){	
+/*int numero::operator-(numero num2){
+  return (*this).entero - num2.entero;
+}
+int numero::operator+(numero num2){
+  return (*this).entero + num2.entero;
+}
+int numero::operator*(numero num2){
+  return (*this).entero * num2.entero;
+}*/
+
+void Octal::convertir( string numero ){
+  string octal = "";
+  tipo = 'o';
+  for (int i = 2; i < numero.size(); i++) octal+=numero[i];
+  entero = stoi(octal, nullptr, 8);
 }

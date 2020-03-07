@@ -7,20 +7,16 @@
 using namespace std;
 
 class Numero{
-	
-	protected:
-		
-		string tipo;
-		string obnumero;
 
-	public:
-		
-		Numero();
-		Numero(string,string);
-		string getTipo();
-		string getNumero();
-		string toString();
-		~Numero();
+  string original;
+  public:
+    char tipo;
+    int entero;
+    Numero();
+    Numero( string numero );
+    virtual int operator-(Numero num2);
+    virtual int operator+(Numero num2);
+    virtual int operator*(Numero num2);
+    //void convertido( string num );
 };
-
 #endif
