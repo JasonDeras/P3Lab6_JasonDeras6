@@ -11,7 +11,7 @@
 using namespace std;
 
 //Vector de numeros
-vector< string > lista_numeros;
+vector<string> lista_numeros;
 
 
 //Validacion de los nmeros
@@ -30,13 +30,13 @@ void Multiplicacion();
 string Formato( int resultado );
 
 //Binarios
-int Biario( int numero );
+int biario( int numero );
 
 //Octales
-int Octal( int numero );
+int bctal( int numero );
 
 //Hexadecimales
-string Hexadecimal( int numero );
+string hexadecimal( int numero );
 
 //Numeros
 Numero numero1("0"), numero2("0");
@@ -75,11 +75,11 @@ int main(){
   		break;}
 
   		case 2:{
-  			listar();
+  			Listar();
   		break;}
 
   		case 3:{
-  			oprear();
+  			Operareracion();
   		break;}
   		
   		default:{
@@ -101,7 +101,7 @@ void Validacion(string numero){
 	int resp=1;
 	size_t binario = numero.find("b");
 	size_t hexadecimal = numero.find("0x");
-	size_t foundoc = num.find("0c");
+	size_t octal = numero.find("0c");
 
 	if (binario==numero.size()-1){
 		for (int i = 0; i < numero.size(); i++){
@@ -176,6 +176,7 @@ void Validacion(string numero){
 }//Fin del metodo para validar el numero
 
 void Listar(){
+	cout<<"\n\nListado de los numeros"<<endl;
 	if (!lista_numeros.empty()){
 		for (int i = 0; i < lista_numeros.size(); i++){			
 			cout<<"Posicion "<<i<<": "<<lista_numeros[i]<<endl;
@@ -185,90 +186,101 @@ void Listar(){
 	}//Fin del if que valida que el vector no este vacio
 }//Fin del metodo para listar
 
-void operar(){
-  listar();
+void Operareracion(){
+	Listar();
   int num1, num2, opcion;
   do{
     cout << "Ingrese el primer numero: ";
     cin >> num1;
     cout << "Ingrese el segundo numero: ";
     cin >> num2;
-  }while( num1 < 0 || num1 > numeros.size() || num2 < 0 || num2 > numeros.size() );
-  char verificar = tipo( numeros[num1] );
+  }while( num1 < 0 || num1 > lista_numeros.size() || num2 < 0 || num2 > lista_numeros.size() );
+  char verificar = tipo( lista_numeros[num1] );
   switch( verificar ){
     case 'b':{
-              Binario baux( numeros[num1] );
-              n1 = baux;
-              n1.tipo = 'b';
-              cout << "Tipo: " << n1.tipo << " Valo: " << n1.entero << endl;
-              break;
-    }
+        Binario baux( lista_numeros[num1] );
+        numero1 = baux;
+        numero1.tipo = 'b';
+    break;}
+    
     case 'o':{
-              Octal oaux( numeros[num1] );
-              n1 = oaux;
-              n1.tipo = 'o';
-              cout << "Tipo: " << n1.tipo << " Valo: " << n1.entero << endl;
-              break;
-    }
+        Octal oaux( lista_numeros[num1] );
+        numero1 = oaux;
+        numero1.tipo = 'o';
+    break;}
+
     case 'h':{
-            Hexadecimal haux( numeros[num1] );
-            n1 = haux;
-            n1.tipo = 'h';
-            cout << "Tipo: " << n1.tipo << " Valo: " << n1.entero << endl;
-            break;
-    }
+    	Hexadecimal haux( lista_numeros[num1] );
+        numero1 = haux;
+        numero1.tipo = 'h';
+    break;}
+    
     case 'e':{
-           n1.entero = stoi(numeros[num1], nullptr, 10);
-            break;
-    }
-  }
-  char verificar2 = tipo( numeros[num2] );
+        numero1.entero = stoi(lista_numeros[num1], nullptr, 10);
+    break;}
+  }//Fin del case 
+
+  char verificar2 = tipo( lista_numeros[num2] );
   switch( verificar2 ){
     case 'b':{
-              Binario baux( numeros[num2] );
-              n2 = baux;
+              Binario baux( lista_numeros[num2] );
+              numero2 = baux;
               break;
     }
     case 'o':{
-              Octal oaux( numeros[num2] );
-              n2 = oaux;
+              Octal oaux( lista_numeros[num2] );
+              numero2 = oaux;
               break;
     }
     case 'h':{
-            Hexadecimal haux( numeros[num2] );
-            n2 = haux;
+            Hexadecimal haux( lista_numeros[num2] );
+            numero2 = haux;
             break;
     }case 'e':{
-            n2.entero = stoi(numeros[num2], nullptr, 10);
+            numero2.entero = stoi(lista_numeros[num2], nullptr, 10);
             break;
     }
 
   }
-  cout << "1- Sumar" << endl << "2- Restar" << endl << "3- Multiplicar" << endl << "Ingrese la opcion: ";
+  cout<< "1- Sumar" << endl;
+  cout<< "2- Restar" << endl;
+  cout<< "3- Multiplicar" << endl;
+  cout<< "Ingrese la opcion: ";
   cin >> opcion;
-  if( opcion == 1 ) suma();
-  if( opcion == 2 ) resta();
-  if( opcion == 3 ) multiplicacion();
+  switch(opcion){
+  		case 1:
+  			Suma();
+  		break;
+  		case 2:
+  			Resta();
+  		break;
+  		case 3:
+  			Multiplicacion();
+  		break;
+  		default:
+  			cout<<"Opcion no valida"<<endl;
+  		break;
+  }//Fin del case de las operaciones
 }
 
-void suma(){
-  int s = n1 + n2;
+void Suma(){
+  int s = numero1 + numero2;
   cout << "Resultado: " << formato(s) << endl;
 }
 
-void resta(){
-  int r = n1 - n2;
+void Resta(){
+  int r = numero1 - numero2;
   cout << "Resultado: " << formato(r) << endl;
 }
 
-void multiplicacion(){
-  int m =  n1 * n2;
+void Multiplicacion(){
+  int m =  numero1 * numero2;
   cout << "Resultado: " << formato(m) << endl;
 }
 
 string formato( int resultado ){
   string formato = to_string(resultado);
-  switch( n1.tipo ){
+  switch( numero1.tipo ){
     case 'b':{
                 int bin = binary( resultado );
                 formato = to_string(bin);
@@ -355,4 +367,4 @@ char tipo( string num ){
   }else{
     return 'e';
   }
-}
+}//Fin del metodo de tipo
